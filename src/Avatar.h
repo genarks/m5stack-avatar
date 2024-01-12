@@ -58,7 +58,7 @@ class Avatar {
   ColorPalette getColorPalette() const;
   void setColorPalette(ColorPalette cp);
   void setFace(Face *face);
-  void init(int colorDepth = 1);
+  void init(int colorDepth = 1, void (*backgroundDrawFunc)(M5Canvas *canvas) = nullptr, void (*foregroundDrawFunc)(M5Canvas *canvas) = nullptr);
   Expression getExpression();
   void setBreath(float f);
   float getBreath();
@@ -74,7 +74,7 @@ class Avatar {
   void setScale(float scale);
   void draw(void);
   bool isDrawing();
-  void start(int colorDepth = 1);
+  void start(int colorDepth = 1, void (*backgroundDrawFunc)(M5Canvas *canvas) = nullptr, void (*foregroundDrawFunc)(M5Canvas *canvas) = nullptr);
   void stop();
   void addTask(TaskFunction_t f
               , const char* name

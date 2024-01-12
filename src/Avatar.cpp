@@ -143,9 +143,9 @@ void Avatar::addTask(TaskFunction_t f
 #endif
 }
 
-void Avatar::init(int colorDepth) {
+void Avatar::init(int colorDepth, void (*backgroundDrawFunc)(M5Canvas *canvas), void (*foregroundDrawFunc)(M5Canvas *canvas)) {
   // for compatibility with older version
-  start(colorDepth);
+  start(colorDepth, backgroundDrawFunc, foregroundDrawFunc);
 }
 
 void Avatar::stop() { _isDrawing = false; }
@@ -162,10 +162,12 @@ void Avatar::resume() {
 #endif
 }
 
-void Avatar::start(int colorDepth) { 
+void Avatar::start(int colorDepth, void (*backgroundDrawFunc)(M5Canvas *canvas), void (*foregroundDrawFunc)(M5Canvas *canvas)) { 
   // if the task already started, don't create another task;
   if (_isDrawing) return;
   _isDrawing = true;
+
+  face->init(backgroundDrawFunc, foregroundDrawFunc);
 
   this->colorDepth = colorDepth;
   DriveContext *ctx = new DriveContext(this);

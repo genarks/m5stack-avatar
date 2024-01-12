@@ -33,6 +33,8 @@ class Face {
   Balloon *b;
   Effect *h;
   BatteryIcon *battery;
+  void (*backgroundDrawFunc)(M5Canvas *canvas);
+  void (*foregroundDrawFunc)(M5Canvas *canvas);
 
  public:
   // constructor
@@ -69,6 +71,12 @@ class Face {
   void setRightEyeblow();
 
   void draw(DrawContext *ctx);
+
+  void init(void (*backgroundDrawFunc)(M5Canvas *canvas) = nullptr, void (*foregroundDrawFunc)(M5Canvas *canvas) = nullptr) {
+     this->backgroundDrawFunc = backgroundDrawFunc;
+     this->foregroundDrawFunc = foregroundDrawFunc;
+     sprite->createSprite(boundingRect->getWidth(), boundingRect->getHeight());
+  }
 };
 }  // namespace m5avatar
 

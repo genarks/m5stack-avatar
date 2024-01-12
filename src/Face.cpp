@@ -97,6 +97,9 @@ void Face::draw(DrawContext *ctx) {
   }
   float breath = _min(1.0f, ctx->getBreath());
 
+  if (backgroundDrawFunc)
+    backgroundDrawFunc(sprite);
+
   // TODO(meganetaaan): unify drawing process of each parts
   BoundingRect rect = *mouthPos;
   rect.setPosition(rect.getTop() + breath * 3, rect.getLeft());
@@ -124,6 +127,9 @@ void Face::draw(DrawContext *ctx) {
   h->draw(sprite, br, ctx);
   battery->draw(sprite, br, ctx);
   // drawAccessory(sprite, position, ctx);
+
+  if (foregroundDrawFunc)
+    foregroundDrawFunc(sprite);
 
   // TODO(meganetaaan): rethink responsibility for transform function
   float scale = ctx->getScale();
